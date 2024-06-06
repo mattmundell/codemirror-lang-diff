@@ -6,7 +6,7 @@ diff --git x y
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
     Context,
 )
 
@@ -18,7 +18,7 @@ diff --git x y
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
     Context,
 )
 
@@ -31,7 +31,7 @@ diff --git x y
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
     Addition,
     Addition,
 )
@@ -45,7 +45,7 @@ diff --git x y
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
     Addition,
     Addition,
 )
@@ -57,7 +57,7 @@ diff --git a/space b b/space b
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
 )
 
 # New file
@@ -68,7 +68,7 @@ diff --git a/x b/y
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
     NewFile(Filename),
 )
 
@@ -80,7 +80,7 @@ diff --git a/x b/y
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
     Location(Linerange, Linerange),
 )
 
@@ -104,11 +104,11 @@ index dc36969..f37fde0 100644
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
     Index(Commit,Commit,Mode),
     OldFile(Filename),
     NewFile(Filename),
-    Location(Linerange,Linerange,Context),
+    Location(Linerange,Linerange),
     Context,
     Context,
     Context,
@@ -129,7 +129,7 @@ index 0000000..e69de29
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
     FileChange(FileNew(Mode)),
     Index(Commit,Commit)
 )
@@ -143,7 +143,7 @@ index e69de29..0000000
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
     FileChange(FileDeleted(Mode)),
     Index(Commit,Commit)
 )
@@ -158,7 +158,7 @@ rename to tmp.md
 ==> 
 
 Source(
-    Command(Filename,Filename),
+    Command,
     Similarity,
     FileChange(FileRenamedFrom(Filename)),
     FileChange(FileRenamedTo(Filename)),
@@ -234,7 +234,7 @@ index 321c90a..b4a5cba 100644
 ==>
 
 Source(
-    Command(Filename,Filename),
+    Command,
     Index(Commit,Commit,Mode),
     OldFile(Filename),
     NewFile(Filename),
@@ -248,7 +248,7 @@ Source(
     Context,
     Context,
     Context,
-    Command(Filename,Filename),
+    Command,
     Index(Commit,Commit,Mode),
     OldFile(Filename),
     NewFile(Filename),
