@@ -1,4 +1,4 @@
-import { DiffLanguage } from "../dist/index.js";
+import { diffLanguage } from "../dist/index.js";
 import { fileTests } from "@lezer/generator/dist/test";
 
 import * as fs from "fs";
@@ -15,6 +15,6 @@ for (let file of fs.readdirSync(caseDir)) {
       fs.readFileSync(path.join(caseDir, file), "utf8"),
       file
     ))
-      it(name, () => run(DiffLanguage.parser));
+      it(name, () => run(diffLanguage.parser));
   });
 }
