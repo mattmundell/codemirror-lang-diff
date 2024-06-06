@@ -1,3 +1,89 @@
+# Context
+
+diff --git x y
+   this is context
+
+==>
+
+Source(
+    Command(Filename,Filename),
+    Context,
+)
+
+# Context contains the word diff
+
+diff --git x y
+   this is diff context
+
+==>
+
+Source(
+    Command(Filename,Filename),
+    Context,
+)
+
+# Addition
+
+diff --git x y
++cramped
++ space
+
+==>
+
+Source(
+    Command(Filename,Filename),
+    Addition,
+    Addition,
+)
+
+# Addition with diff and +
+
+diff --git x y
++cramped with diff
++ space + the end
+
+==>
+
+Source(
+    Command(Filename,Filename),
+    Addition,
+    Addition,
+)
+
+# Space in file name
+
+diff --git a/space b b/space b
+
+==>
+
+Source(
+    Command(Filename,Filename),
+)
+
+# New file
+
+diff --git a/x b/y
++++ file name with spaces/dir with spaces
+
+==>
+
+Source(
+    Command(Filename,Filename),
+    NewFile(Filename),
+)
+
+# Location
+
+diff --git a/x b/y
+@@ -1,4 +1,4 @@
+
+==>
+
+Source(
+    Command(Filename,Filename),
+    Location(Linerange, Linerange),
+)
+
 # Single-file small change
 
 diff --git a/grammar.js b/grammar.js
