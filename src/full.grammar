@@ -1,4 +1,5 @@
 @top Source {
+//  (line? newline)* line? eof
   (line? newline)* line?
 }
 
@@ -27,11 +28,11 @@ Similarity {
 
 Addition { leadingPlus anything? }
 
-Deletion { leadingMinus anything? }
+Deletion { leadingMinus anything }
 
 Location { locationStart Linerange " " Linerange " @@" anything? }
 
-Context { leadingSpace anything? }
+Context { leadingSpace anything? newline }
 
 Linerange { ("-" | "+") digit+ ("," digit+)? }
 
@@ -74,11 +75,11 @@ Filename { anything }
 @tokens {
     diffGit { "diff --git " }
     indexStart { "index " }
-    leadingSpace { " " }
+    leadingSpace { "XXX" }
     plusNew { "+++ " }
     minusOld { "--- " }
     leadingPlus { "+" }
-    leadingMinus { "-" }
+    leadingMinus { "-00" }
     locationStart { "@@ " }
     similarityIndex { "similarity index " }
     binaryFiles { "Binary files " }
@@ -90,6 +91,9 @@ Filename { anything }
 
     hex { $[a-f0-9] }
     newline { "\r"? "\n" }
+    eof { @eof }
     anything { ![\r\n]+ }
     digit { @digit }
+
+    @precedence { diffGit, indexStart, leadingSpace, plusNew, minusOld, leadingPlus, leadingMinus, locationStart, similarityIndex, binaryFiles, noNewLineAtTheEndOfNewFile, renameFrom, renameTo, deletedFile, newFile, anything }
 }

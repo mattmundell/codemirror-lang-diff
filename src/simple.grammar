@@ -1,0 +1,25 @@
+@top Source {
+//  (line? newline)* line? eof
+//  (line? newline)* line?
+    line eof
+}
+
+line {
+  Addition |
+  Deletion
+}
+
+Addition { leadingPlus anything? }
+
+Deletion { leadingMinus anything }
+
+@tokens {
+    leadingPlus { "+" }
+    leadingMinus { "-" }
+
+//    newline { "\r"? "\n" }
+    eof { @eof }
+    anything { ![\r\n]+ }
+
+//    @precedence { leadingPlus, leadingMinus, anything }
+}
