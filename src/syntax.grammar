@@ -1,5 +1,5 @@
 @top Source {
-  (line? newline)* line?
+  (line? newline)* line? (newline | eof)
 }
 
 line {
@@ -17,30 +17,34 @@ line {
   noNewLineAtTheEndOfNewFile
 }
 
-Similarity {
-    "similarity index " digit digit? digit? "%"
+noise {
+    anything
 }
 
-Addition { "+" anything? }
+Similarity {
+    similarityIndex digit digit? digit? "%"
+}
 
-Deletion { "-" anything? }
+Addition { leadingPlus anything? }
 
-Location { "@@ " Linerange " " Linerange " @@" anything? }
+Deletion { leadingMinus anything? }
 
-Context { " " anything? }
+Location { locationStart Linerange " " Linerange " @@" anything? }
+
+Context { leadingSpace anything? newline }
 
 Linerange { ("-" | "+") digit+ ("," digit+)? }
 
-NewFile { "+++ " Filename }
+NewFile { plusNew Filename }
 
-OldFile { "--- " Filename }
+OldFile { minusOld Filename }
 
 Command {
-    "diff --git " anything
+    diffGit anything
 }
 
 Index {
-    "index " Commit ".." Commit  (" " Mode)?
+    indexStart Commit ".." Commit  (" " Mode)?
 }
 
 Commit { 
@@ -49,7 +53,7 @@ Commit {
 }
 
 BinaryChange {
-    "Binary files " anything
+    binaryFiles anything
 }
 
 FileChange { 
@@ -58,20 +62,37 @@ FileChange {
     FileNew |
     FileDeleted
 }
-FileRenamedFrom { "rename from " Filename }
-FileRenamedTo { "rename to " Filename }
-FileDeleted { "deleted file mode " Mode }
-FileNew { "new file mode " Mode }
+FileRenamedFrom { renameFrom Filename }
+FileRenamedTo { renameTo Filename }
+FileDeleted { deletedFile Mode }
+FileNew { newFile Mode }
 
 Mode { digit digit digit digit digit digit }
 
 Filename { anything }
 
-noNewLineAtTheEndOfNewFile { "\\ No newline at end of file" }
-
 @tokens {
+    diffGit { "diff --git " }
+    indexStart { "index " }
+    leadingSpace { " " }
+    plusNew { "+++ " }
+    minusOld { "--- " }
+    leadingPlus { "+" }
+    leadingMinus { "-" }
+    locationStart { "@@ " }
+    similarityIndex { "similarity index " }
+    binaryFiles { "Binary files " }
+    renameFrom { "rename from " }
+    renameTo { "rename to " }
+    deletedFile { "deleted file mode " }
+    newFile { "new file mode " }
+    noNewLineAtTheEndOfNewFile { "\\ No newline at end of file" }
+
     hex { $[a-f0-9] }
     newline { "\r"? "\n" }
+    eof { @eof }
     anything { ![\r\n]+ }
     digit { @digit }
+
+    @precedence { diffGit, indexStart, leadingSpace, plusNew, minusOld, leadingPlus, leadingMinus, locationStart, similarityIndex, binaryFiles, noNewLineAtTheEndOfNewFile, renameFrom, renameTo, deletedFile, newFile, anything }
 }

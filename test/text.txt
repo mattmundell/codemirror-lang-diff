@@ -262,3 +262,22 @@ Source(
     Addition,
     Addition
 )
+
+# leading text
+
+From xxx Mon Sep 17 00:00:00 2001
+From: Jo Example <jo@example.org>
+Date: Mon, 8 Jan 2024 16:16:33 +0200
+Subject: [PATCH] Move variables to where they are used
+
+---
+ src/gmp.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/src/gmp.c b/src/gmp.c
+
+==>
+
+Source(
+    Command
+)
